@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Home: NextPage = () => {
   useEffect(() => {
