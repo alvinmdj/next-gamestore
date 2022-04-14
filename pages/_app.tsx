@@ -9,6 +9,7 @@ import '../styles/sign-in.css';
 import '../styles/sign-up.css';
 import '../styles/sign-up-photo.css';
 import '../styles/sign-up-success.css';
+import '../styles/not-found.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';;
 
