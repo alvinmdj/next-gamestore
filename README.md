@@ -1,3 +1,41 @@
+# Next Game Store
+
+## Links
+
+- [Next.js](https://nextjs.org/)
+- [Storybook](https://storybook.js.org/)
+
+## Requirements
+
+- Node.js
+- NPM
+
+## Installation
+
+- Clone this repository:
+
+```sh
+git clone https://github.com/alvinmdj/next-gamestore.git
+```
+
+- Go to the root directory:
+
+```sh
+cd next-gamestore
+```
+
+- Install dependencies:
+
+```sh
+npm install
+```
+
+- Run (development):
+
+```sh
+npm run dev
+```
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
