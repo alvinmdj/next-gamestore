@@ -13,20 +13,20 @@ const TransactionStep = () => {
           <StepItem
             icon='step-1'
             title='1. Start'
-            desc1='Pilih salah satu game'
-            desc2='yang ingin kamu top up'
+            desc1='Choose the game'
+            desc2='you want to top up'
           />
           <StepItem
             icon='step-2'
             title='2. Fill Up'
-            desc1='Top up sesuai dengan'
-            desc2='nominal yang sudah tersedia'
+            desc1='Top up according to'
+            desc2='the available nominal'
           />
           <StepItem
             icon='step-3'
             title='3. Be a Winner'
-            desc1='Siap digunakan untuk'
-            desc2='improve permainan kamu'
+            desc1='All good and ready'
+            desc2='to step up your game'
           />
         </div>
       </div>
