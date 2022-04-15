@@ -18,7 +18,7 @@ const Story = () => {
                 Be the Champion.
               </h2>
               <p className='text-lg color-palette-1 mb-30'>
-                We provide multiple choice
+                We provide lots of items
                 {' '}
                 <br className='d-sm-block d-none' />
                 to help gamers become
