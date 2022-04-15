@@ -12,8 +12,8 @@ const Illustration = () => {
               <Image src='/img/Header-2.png' width='40' height='40' className='rounded-pill'
                 alt='' />
               <div>
-                <p className='text-sm fw-medium color-palette-1 m-0'>Shayna Anne</p>
-                <p className='text-xs fw-light color-palette-2 m-0'>Professional Gamer</p>
+                <p className='text-sm fw-medium color-palette-1 m-0'>John Doe</p>
+                <p className='text-xs fw-light color-palette-2 m-0'>Programmer</p>
               </div>
             </div>
             <div className='d-flex gap-2'>
@@ -32,8 +32,8 @@ const Illustration = () => {
               </p>
             </div>
             <div>
-              <p className='text-sm text-center m-0 fw-medium color-palette-1'>Lann Knight</p>
-              <p className='fw-light text-center m-0 color-palette-2 text-xs'>Dota 2</p>
+              <p className='text-sm text-center m-0 fw-medium color-palette-1'>Dio</p>
+              <p className='fw-light text-center m-0 color-palette-2 text-xs'>Grand Chase</p>
             </div>
           </div>
         </div>
