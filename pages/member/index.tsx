@@ -5,7 +5,7 @@ import Sidebar from '../../components/organisms/Sidebar';
 const Member: React.FC = () => {
   return (
     <section className='overview overflow-auto'>
-      <Sidebar />
+      <Sidebar activeMenu='overview' />
       <MemberOverview />
     </section>
   );
