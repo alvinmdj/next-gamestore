@@ -18,6 +18,7 @@ const StepItem = (props: StepItemProps) => {
         <p className='text-lg color-palette-1 mb-0'>
           {desc1}
           <br/>
+          {' '}
           {desc2}
         </p>
       </div>
