@@ -11,4 +11,6 @@ const Template = (args: InputProps) => <Input {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   label: 'Full Name',
-}
+  name: 'name',
+  placeholder: 'Enter your full name',
+};
