@@ -5,6 +5,7 @@
 - [Next.js](https://nextjs.org/)
 - [Storybook](https://storybook.js.org/)
 - [Classnames](https://www.npmjs.com/package/classnames)
+- [Axios](https://axios-http.com/)
 
 ## Requirements
 
