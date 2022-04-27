@@ -1,6 +1,19 @@
+import { useCallback, useEffect, useState } from 'react';
+import { getFeaturedGames } from '../../../services/player';
 import GameItem from '../../molecules/GameItem';
 
 const FeaturedGame = () => {
+	const [gameList, setGameList] = useState<any[]>([]);
+
+	const getFeaturedGameList = useCallback(async () => {
+		const data = await getFeaturedGames();
+		setGameList(data);
+	}, []);
+
+	useEffect(() => {
+		getFeaturedGameList();
+	}, [getFeaturedGameList]);
+
 	return (
 		<section className='featured-game pt-50 pb-50'>
 			<div className='container-fluid'>
@@ -10,13 +23,20 @@ const FeaturedGame = () => {
 					{' '}
 					Games This Year
 				</h2>
-				<div className='d-flex flex-row flex-lg-wrap overflow-setting justify-content-lg-between gap-lg-3 gap-4'
-					data-aos='fade-up'>
-					<GameItem title='Super Mechs' category='Mobile' thumbnail='/img/Thumbnail-1.png' />
-					<GameItem title='Call of Duty: Modern' category='Mobile' thumbnail='/img/Thumbnail-2.png' />
-					<GameItem title='Mobile Legends' category='Mobile' thumbnail='/img/Thumbnail-3.png' />
-					<GameItem title='Clash of Clans' category='Mobile' thumbnail='/img/Thumbnail-4.png' />
-					<GameItem title='Valorant' category='Desktop' thumbnail='/img/Thumbnail-5.png' />
+				<div
+					className='d-flex flex-row flex-lg-wrap overflow-setting justify-content-lg-between gap-lg-3 gap-4'
+					data-aos='fade-up'
+				>
+					{gameList.map((game) => {
+						return (
+							<GameItem
+								key={game._id}
+								title={game.name}
+								category={game.category.name}
+								thumbnail={`https://vin-gamestore.herokuapp.com/uploads/${game.thumbnail}`}
+							/>
+						);
+					})}
 				</div>
 			</div>
 		</section>
