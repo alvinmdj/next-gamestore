@@ -32,6 +32,12 @@ cd next-gamestore
 npm install
 ```
 
+- Copy ```.env.example``` to ```.env.local```:
+
+```sh
+cp .env.example .env.local
+```
+
 - Run (development):
 
 ```sh
