@@ -20,3 +20,12 @@ export const getVoucherDetail = async (id: string) => {
 
   return axiosResponse.data;
 };
+
+export const getAllCategory = async () => {
+  const ENDPOINT = 'players/category';
+
+  const response = await axios.get(`${ROOT_API}/${API_VERSION}/${ENDPOINT}`);
+  const axiosResponse = response.data;
+
+  return axiosResponse.data;
+};
