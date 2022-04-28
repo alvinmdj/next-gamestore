@@ -5,7 +5,7 @@ import Auth from './Auth';
 import Menu from './Menu';
 import ToggleMenu from './ToggleMenu';
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
   return (
     <section>
       <nav className='navbar navbar-expand-lg navbar-light bg-light bg-white pt-lg-40 pb-lg-40 pt-30 pb-50'>
@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
               <Menu title='Rewards' href='/rewards' />
               <Menu title='Discover' href='/discover' />
               <Menu title='Global Rank' href='/global-rank' />
-              <Auth isLoggedIn />
+              <Auth />
             </ul>
           </div>
         </div>
