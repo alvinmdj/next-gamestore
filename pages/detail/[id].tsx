@@ -9,15 +9,20 @@ import { getVoucherDetail } from '../../services/player';
 const Detail: React.FC = () => {
   const { query, isReady } = useRouter();
 
-  const [itemData, setItemData] = useState({
+  const [voucherData, setVoucherData] = useState({
     name: '',
     thumbnail: '',
     category: { name: '' },
   });
 
+  const [nominals, setNominals] = useState([]);
+  const [payments, setPayments] = useState([]);
+
   const getVoucherDetailAPI = useCallback(async (id: string) => {
     const data = await getVoucherDetail(id);
-    setItemData(data.voucher);
+    setVoucherData(data.voucher);
+    setNominals(data.voucher.nominals);
+    setPayments(data.payment);
   }, []);
   
   useEffect(() => {
@@ -37,12 +42,12 @@ const Detail: React.FC = () => {
           </div>
           <div className='row'>
             <div className='col-xl-3 col-lg-4 col-md-5 pb-30 pb-md-0 pe-md-25 text-md-start'>
-              <TopUpItem data={itemData} type='mobile' />
+              <TopUpItem data={voucherData} type='mobile' />
             </div>
             <div className='col-xl-9 col-lg-8 col-md-7 ps-md-25'>
-              <TopUpItem data={itemData} type='desktop' />
+              <TopUpItem data={voucherData} type='desktop' />
               <hr/>
-              <TopUpForm />
+              <TopUpForm nominals={nominals} payments={payments} />
             </div>
           </div>
         </div>

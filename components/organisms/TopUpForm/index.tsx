@@ -2,7 +2,9 @@ import Link from "next/link";
 import NominalItem from "./NominalItem";
 import PaymentItem from "./PaymentItem";
 
-const TopUpForm = () => {
+const TopUpForm = (props) => {
+  const { nominals, payments } = props;
+
   return (
     <form action='./checkout.html' method='POST'>
       <div className='pt-md-50 pt-30'>
@@ -16,9 +18,17 @@ const TopUpForm = () => {
       <div className='pt-md-50 pb-md-50 pt-30 pb-20'>
         <p className='text-lg fw-medium color-palette-1 mb-md-10 mb-0'>Nominal Top Up</p>
         <div className='row justify-content-between'>
-          <NominalItem _id="123" coinQuantity={200} coinName="GOLD" price={500000} />
-          <NominalItem _id="321" coinQuantity={200} coinName="GOLD" price={500000} />
-          <NominalItem _id="421" coinQuantity={200} coinName="GOLD" price={500000} />
+          {nominals.map((nominal) => {
+            return (
+              <NominalItem
+                key={nominal._id}
+                _id={nominal._id}
+                coinQuantity={nominal.coinQuantity}
+                coinName={nominal.coinName}
+                price={nominal.price}
+              />
+            );
+          })}
           <div className='col-lg-4 col-sm-6'>
           </div>
         </div>
@@ -27,8 +37,18 @@ const TopUpForm = () => {
         <p className='text-lg fw-medium color-palette-1 mb-md-10 mb-0'>Payment Method</p>
         <fieldset id='paymentMethod'>
           <div className='row justify-content-between'>
-            <PaymentItem bankId="1223" type="Transfer" name="Bank Jago" />
-            <PaymentItem bankId="32211" type="Transfer" name="Bank Jago" />
+            {payments.map((payment) => {
+              return payment.banks.map((bank) => {
+                return (
+                  <PaymentItem
+                    key={bank._id}
+                    bankId={bank._id}
+                    type={payment.type}
+                    name={bank.bankName}
+                  />
+                );
+              })
+            })}
             <div className='col-lg-4 col-sm-6'>
             </div>
           </div>
