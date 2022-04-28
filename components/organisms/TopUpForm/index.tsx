@@ -1,8 +1,14 @@
 import Link from "next/link";
+import { NominalTypes, PaymentTypes } from "../../../services/data-types";
 import NominalItem from "./NominalItem";
 import PaymentItem from "./PaymentItem";
 
-const TopUpForm = (props) => {
+interface TopUpFormProps {
+  nominals: NominalTypes[];
+  payments: PaymentTypes[];
+}
+
+const TopUpForm = (props: TopUpFormProps) => {
   const { nominals, payments } = props;
 
   return (
@@ -56,15 +62,17 @@ const TopUpForm = (props) => {
       </div>
       <div className='pb-50'>
         <label htmlFor='bankAccount' className='form-label text-lg fw-medium color-palette-1 mb-10'>Bank
-          Account
-          Name</label>
+          Account Name
+        </label>
         <input type='text' className='form-control rounded-pill text-lg' id='bankAccount'
           name='bankAccount' aria-describedby='bankAccount'
-          placeholder='Enter your Bank Account Name' />
+          placeholder='Enter your Bank Account Name'
+        />
       </div>
       <div className='d-sm-block d-flex flex-column w-100'>
         <Link href='/checkout'>
-          <a type='submit'
+          <a
+            type='submit'
             className='btn btn-submit rounded-pill fw-medium text-white border-0 text-lg'
           >
             Continue
