@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { NominalTypes, PaymentTypes } from "../../../services/data-types";
-import NominalItem from "./NominalItem";
-import PaymentItem from "./PaymentItem";
+import Link from 'next/link';
+import { NominalTypes, PaymentTypes } from '../../../services/data-types';
+import NominalItem from './NominalItem';
+import PaymentItem from './PaymentItem';
 
 interface TopUpFormProps {
   nominals: NominalTypes[];
