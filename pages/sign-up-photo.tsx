@@ -1,11 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
+import { postSignUp } from '../services/auth';
 import { getAllCategory } from '../services/player';
 
 const SignUpPhoto = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [favorite, setFavorite] = useState('');
+  const [image, setImage] = useState<File>();
+  const [imagePreview, setImagePreview] = useState('/icon/upload.svg');
+  const [localForm, setLocalForm] = useState({ name: '', email: '' });
 
   const getAllCategoryAPI = useCallback(async () => {
     const data = await getAllCategory();
@@ -17,8 +21,25 @@ const SignUpPhoto = () => {
     getAllCategoryAPI();
   }, [getAllCategoryAPI]);
 
-  const handleSubmit = () => {
-    console.log('favorite', favorite);
+  useEffect(() => {
+    const getLocalForm = localStorage.getItem('user-form');
+    setLocalForm(JSON.parse(getLocalForm as string));
+  }, []);
+
+  const handleSubmit = async () => {
+    const getLocalForm = localStorage.getItem('user-form');
+    const userForm = JSON.parse(getLocalForm as string);
+    const data = new FormData();
+
+    data.append('name', userForm.name);
+    data.append('email', userForm.email);
+    data.append('password', userForm.password);
+    data.append('image', image as Blob);
+    data.append('favorite', favorite);
+    data.append('username', userForm.name);
+    data.append('phoneNumber', '08123456789');
+
+    await postSignUp(data);
   };
 
   return (
@@ -30,13 +51,27 @@ const SignUpPhoto = () => {
               <div className='mb-20'>
                 <div className='image-upload text-center'>
                   <label htmlFor='avatar'>
-                    <Image src='/icon/upload.svg' width={120} height={120} alt='upload' />
+                    <Image src={imagePreview} width={120} height={120} alt='upload' />
                   </label>
-                  <input id='avatar' type='file' name='avatar' accept='image/png, image/jpeg' />
+                  <input
+                    id='avatar'
+                    name='avatar'
+                    type='file'
+                    accept='image/png, image/jpeg'
+                    onChange={(e) => {
+                      const img = e.target.files![0];
+                      setImagePreview(URL.createObjectURL(img));
+                      return setImage(img);
+                    }}
+                  />
                 </div>
               </div>
-              <h2 className='fw-bold text-xl text-center color-palette-1 m-0'>Shayna Anne</h2>
-              <p className='text-lg text-center color-palette-1 m-0'>shayna@anne.com</p>
+              <h2 className='fw-bold text-xl text-center color-palette-1 m-0'>
+                {localForm.name}
+              </h2>
+              <p className='text-lg text-center color-palette-1 m-0'>
+                {localForm.email}
+              </p>
               <div className='pt-50 pb-50'>
                 <label
                   htmlFor='category'
@@ -45,8 +80,6 @@ const SignUpPhoto = () => {
                   Favorite Game
                 </label>
                 <select
-                  id='category'
-                  name='category'
                   className='form-select d-block w-100 rounded-pill text-lg'
                   aria-label='Favorite Game'
                   value={favorite}
