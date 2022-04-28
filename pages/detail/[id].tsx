@@ -17,7 +17,7 @@ const Detail: React.FC = () => {
 
   const getVoucherDetailAPI = useCallback(async (id: string) => {
     const data = await getVoucherDetail(id);
-    setItemData(data);
+    setItemData(data.voucher);
   }, []);
   
   useEffect(() => {
