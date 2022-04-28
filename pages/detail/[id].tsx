@@ -1,20 +1,30 @@
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Footer from '../../components/organisms/Footer';
 import Navbar from '../../components/organisms/Navbar';
 import TopUpForm from '../../components/organisms/TopUpForm';
 import TopUpItem from '../../components/organisms/TopUpItem';
+import { getVoucherDetail } from '../../services/player';
 
 const Detail: React.FC = () => {
   const { query, isReady } = useRouter();
+
+  const [itemData, setItemData] = useState({
+    name: '',
+    thumbnail: '',
+    category: { name: '' },
+  });
+
+  const getVoucherDetailAPI = useCallback(async (id: string) => {
+    const data = await getVoucherDetail(id);
+    setItemData(data);
+  }, []);
   
   useEffect(() => {
     if (isReady) {
-      console.log('ready', query.id);
-    } else {
-      console.log('not ready');
+      getVoucherDetailAPI(query.id as string);
     }
-  }, [isReady, query]);
+  }, [isReady, query, getVoucherDetailAPI]);
 
   return (
     <>
@@ -27,10 +37,10 @@ const Detail: React.FC = () => {
           </div>
           <div className='row'>
             <div className='col-xl-3 col-lg-4 col-md-5 pb-30 pb-md-0 pe-md-25 text-md-start'>
-              <TopUpItem type='mobile' />
+              <TopUpItem data={itemData} type='mobile' />
             </div>
             <div className='col-xl-9 col-lg-8 col-md-7 ps-md-25'>
-              <TopUpItem type='desktop' />
+              <TopUpItem data={itemData} type='desktop' />
               <hr/>
               <TopUpForm />
             </div>
