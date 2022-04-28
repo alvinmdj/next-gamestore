@@ -1,11 +1,21 @@
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 import Footer from '../../components/organisms/Footer';
 import Navbar from '../../components/organisms/Navbar';
 import TopUpForm from '../../components/organisms/TopUpForm';
 import TopUpItem from '../../components/organisms/TopUpItem';
 
-
 const Detail: React.FC = () => {
+  const { query, isReady } = useRouter();
+  
+  useEffect(() => {
+    if (isReady) {
+      console.log('ready', query.id);
+    } else {
+      console.log('not ready');
+    }
+  }, [isReady, query]);
+
   return (
     <>
       <Navbar />

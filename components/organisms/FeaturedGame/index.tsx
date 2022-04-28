@@ -31,6 +31,7 @@ const FeaturedGame = () => {
 						return (
 							<GameItem
 								key={game._id}
+								id={game._id}
 								title={game.name}
 								category={game.category.name}
 								thumbnail={`${API_IMG}/${game.thumbnail}`}
