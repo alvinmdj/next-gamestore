@@ -20,7 +20,7 @@ const SignInForm = () => {
       if (response.error) {
         toast.error(response.message);
       } else {
-        toast.success(response.message);
+        toast.success('Login Successful');
         router.push('/');
       }
     }

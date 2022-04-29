@@ -16,7 +16,7 @@ export default async function callAPI ({ url, method, data }: AxiosRequestConfig
   }
   return {
     error: false,
-    message: 'Login Success',
+    message: 'success',
     data: response.data.data,
   };
 };
