@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { postSignUp } from '../services/auth';
 import { getAllCategory } from '../services/player';
+import { useRouter } from 'next/router';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUpPhoto = () => {
   const [categories, setCategories] = useState<any[]>([]);
@@ -10,6 +13,8 @@ const SignUpPhoto = () => {
   const [image, setImage] = useState<File>();
   const [imagePreview, setImagePreview] = useState('/icon/upload.svg');
   const [localForm, setLocalForm] = useState({ name: '', email: '' });
+
+  const router = useRouter();
 
   const getAllCategoryAPI = useCallback(async () => {
     const data = await getAllCategory();
@@ -23,8 +28,12 @@ const SignUpPhoto = () => {
 
   useEffect(() => {
     const getLocalForm = localStorage.getItem('user-form');
-    setLocalForm(JSON.parse(getLocalForm as string));
-  }, []);
+    if (getLocalForm) {
+      setLocalForm(JSON.parse(getLocalForm as string));
+    } else {
+      router.push('/sign-up');
+    }
+  }, [router]);
 
   const handleSubmit = async () => {
     const getLocalForm = localStorage.getItem('user-form');
@@ -39,7 +48,14 @@ const SignUpPhoto = () => {
     data.append('username', userForm.name);
     data.append('phoneNumber', '08123456789');
 
-    await postSignUp(data);
+    const result = await postSignUp(data);
+    if (result?.error === 1) {
+      toast.error(result.message);
+    } else {
+      toast.success('Your account has been created!');
+      localStorage.removeItem('user-form');
+      router.push('/sign-up-success');
+    }
   };
 
   return (
@@ -117,6 +133,7 @@ const SignUpPhoto = () => {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </section>
   );
 };

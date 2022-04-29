@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUpForm = () => {
   const [name, setName] = useState('');
@@ -15,9 +17,18 @@ const SignUpForm = () => {
   };
 
   const handleSubmit = () => {
-    const userForm = { name, email, password };
-    localStorage.setItem('user-form', JSON.stringify(userForm));
-    router.push('/sign-up-photo');
+    if (name && email && password) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (!re.test(email)) {
+        toast.error('Email is not valid');
+      } else {
+        const userForm = { name, email, password };
+        localStorage.setItem('user-form', JSON.stringify(userForm));
+        router.push('/sign-up-photo');
+      }
+    } else {
+      toast.error('Please fill all the form');
+    }
   };
 
   return (
@@ -74,6 +85,7 @@ const SignUpForm = () => {
           </a>
         </Link>
       </div>
+      <ToastContainer />
     </>
   );
 };

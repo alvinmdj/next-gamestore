@@ -7,6 +7,7 @@
 - [Classnames](https://www.npmjs.com/package/classnames)
 - [Axios](https://axios-http.com/)
 - [react-number-format](https://www.npmjs.com/package/react-number-format)
+- [react-toastify](https://www.npmjs.com/package/react-toastify)
 
 ## Requirements
 

@@ -6,9 +6,14 @@ const API_VERSION = 'api/v1';
 export const postSignUp = async (data: FormData) => {
   const ENDPOINT = 'auth/signup';
 
-  const response = await axios.post(`${ROOT_API}/${API_VERSION}/${ENDPOINT}`, data);
+  const response = await axios
+    .post(`${ROOT_API}/${API_VERSION}/${ENDPOINT}`, data)
+    .catch((err) => err.response);
   const axiosResponse = response.data;
 
+  if (axiosResponse?.error === 1) {
+    return axiosResponse;
+  }
   return axiosResponse.data;
 };
 
