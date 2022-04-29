@@ -29,7 +29,7 @@ const SignUpPhoto = () => {
   useEffect(() => {
     const getLocalForm = localStorage.getItem('user-form');
     if (getLocalForm) {
-      setLocalForm(JSON.parse(getLocalForm as string));
+      setLocalForm(JSON.parse(getLocalForm!));
     } else {
       router.push('/sign-up');
     }
@@ -37,7 +37,7 @@ const SignUpPhoto = () => {
 
   const handleSubmit = async () => {
     const getLocalForm = localStorage.getItem('user-form');
-    const userForm = JSON.parse(getLocalForm as string);
+    const userForm = JSON.parse(getLocalForm!);
     const data = new FormData();
 
     data.append('name', userForm.name);
@@ -49,7 +49,7 @@ const SignUpPhoto = () => {
     data.append('phoneNumber', '08123456789');
 
     const result = await postSignUp(data);
-    if (result?.error === 1) {
+    if (result?.error) {
       toast.error(result.message);
     } else {
       toast.success('Your account has been created!');
