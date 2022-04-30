@@ -1,10 +1,14 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { postCheckout } from '../../../services/player';
 
 const CheckoutConfirmation = () => {
   const [isChecked, setIsChecked] = useState(false);
 
-  const handleSubmit = () => {
+  const router = useRouter();
+
+  const handleSubmit = async () => {
     const localVoucherData = localStorage.getItem('voucher-data');
     const localTopUpData = localStorage.getItem('top-up-data');
 
@@ -15,6 +19,7 @@ const CheckoutConfirmation = () => {
       toast.error('Please make sure you have transferred the money');
       return;
     }
+
     const data = {
       'voucher': voucherData._id,
       'nominal': topUpData.nominalItem._id,
@@ -23,7 +28,16 @@ const CheckoutConfirmation = () => {
       'name': topUpData.bankAccountName,
       'userAccount': topUpData.verifyID,
     };
-    console.log('data:', data);
+
+    const response = await postCheckout(data);
+    if (response.error) {
+      toast.error(response.message);
+    } else {
+      toast.success('Checkout Successful');
+      localStorage.removeItem('voucher-data');
+      localStorage.removeItem('top-up-data');
+      router.push('/complete-checkout');
+    }
   };
 
   return (
