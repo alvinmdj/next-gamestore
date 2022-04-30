@@ -2,32 +2,36 @@ import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import jwt_decode from 'jwt-decode';
-
-interface JwtPayloadTypes {
-  player: {
-    avatar: string;
-  }
-}
+import jwtDecode from 'jwt-decode';
+import { JWTPayloadTypes, UserTypes } from '../../../services/data-types';
+import { useRouter } from 'next/router';
 
 const Auth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({ avatar: '' });
 
+  const router = useRouter();
+
   useEffect(() => {
     const token = Cookies.get('token');
     if (token) {
       const jwtToken = Buffer.from(token, 'base64').toString('utf-8'); // atob is deprecated
-      const payload: JwtPayloadTypes = jwt_decode(jwtToken);
-      const user = payload.player;
-      if (user.avatar) {
+      const payload: JWTPayloadTypes = jwtDecode(jwtToken);
+      const userFromPayload: UserTypes = payload.player;
+      if (userFromPayload.avatar) {
         const IMG_ROOT = process.env.NEXT_PUBLIC_IMG;
-        user.avatar = `${IMG_ROOT}/${user.avatar}`;
+        userFromPayload.avatar = `${IMG_ROOT}/${userFromPayload.avatar}`;
       }
       setIsLoggedIn(true);
-      setUser(user);
+      setUser(userFromPayload);
     }
   }, []);
+
+  const handleSignOut = () => {
+    Cookies.remove('token');
+    setIsLoggedIn(false);
+    router.push('/');
+  };
 
   if (isLoggedIn) {
     return (
@@ -47,7 +51,7 @@ const Auth = () => {
           <ul className='dropdown-menu border-0' aria-labelledby='dropdownMenuLink'>
             <li><Link href='/member'><a className='dropdown-item text-lg color-palette-2'>My Profile</a></Link></li>
             <li><Link href='/member/edit-profile'><a className='dropdown-item text-lg color-palette-2'>Account Settings</a></Link></li>
-            <li><Link href='/sign-in'><a className='dropdown-item text-lg color-palette-2'>Log Out</a></Link></li>
+            <li onClick={handleSignOut}><button type='button' className='dropdown-item text-lg color-palette-2'>Log Out</button></li>
           </ul>
         </div>
       </li>
