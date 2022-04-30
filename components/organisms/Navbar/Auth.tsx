@@ -49,7 +49,7 @@ const Auth = () => {
             />
           </a>
           <ul className='dropdown-menu border-0' aria-labelledby='dropdownMenuLink'>
-            <li><Link href='/member'><a className='dropdown-item text-lg color-palette-2'>My Profile</a></Link></li>
+            <li><Link href='/member'><a className='dropdown-item text-lg color-palette-2'>My Dashboard</a></Link></li>
             <li><Link href='/member/edit-profile'><a className='dropdown-item text-lg color-palette-2'>Account Settings</a></Link></li>
             <li onClick={handleSignOut}><button type='button' className='dropdown-item text-lg color-palette-2'>Log Out</button></li>
           </ul>
