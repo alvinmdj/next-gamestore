@@ -26,6 +26,7 @@ const Detail: React.FC = () => {
       toast.error('Internal server error. Failed to get voucher detail');
     } else {
       setVoucherData(response.data.voucher);
+      localStorage.setItem('voucher-data', JSON.stringify(response.data.voucher));
       setNominals(response.data.voucher.nominals);
       setPayments(response.data.payment);
     }
