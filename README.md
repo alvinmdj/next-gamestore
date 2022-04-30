@@ -8,6 +8,8 @@
 - [Axios](https://axios-http.com/)
 - [react-number-format](https://www.npmjs.com/package/react-number-format)
 - [react-toastify](https://www.npmjs.com/package/react-toastify)
+- [js-cookie](https://www.npmjs.com/package/js-cookie)
+- [jwt-decode](https://www.npmjs.com/package/jwt-decode)
 
 ## Requirements
 

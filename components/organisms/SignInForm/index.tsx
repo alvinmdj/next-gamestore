@@ -4,6 +4,7 @@ import { postSignIn } from '../../../services/auth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
@@ -21,6 +22,9 @@ const SignInForm = () => {
         toast.error(response.message);
       } else {
         toast.success('Login Successful');
+        const { token } = response.data;
+        const tokenBase64 = Buffer.from(token, 'utf-8').toString('base64'); // btoa is deprecated
+        Cookies.set('token', tokenBase64, { expires: 7 }); // 7 days
         router.push('/');
       }
     }
