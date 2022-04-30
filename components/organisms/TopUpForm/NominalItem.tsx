@@ -39,7 +39,6 @@ const NominalItem = (props: NominalItemProps) => {
             thousandSeparator={'.'}
             decimalSeparator={','}
             prefix='Rp '
-            suffix=',00'
           />
         </p>
       </div>
