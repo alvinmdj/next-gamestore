@@ -71,7 +71,13 @@ const SignUpPhoto = () => {
               <div className='mb-20'>
                 <div className='image-upload text-center'>
                   <label htmlFor='avatar'>
-                    <Image src={imagePreview} width={120} height={120} alt='upload' />
+                    <Image
+                      style={{ borderRadius: '50%' }}
+                      src={imagePreview}
+                      width={120}
+                      height={120}
+                      alt='upload'
+                    />
                   </label>
                   <input
                     id='avatar'
