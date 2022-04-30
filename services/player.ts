@@ -1,4 +1,3 @@
-import axios from 'axios';
 import callAPI from '../configs/api';
 
 const ROOT_API = process.env.NEXT_PUBLIC_API;
