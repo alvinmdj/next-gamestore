@@ -17,9 +17,13 @@ const SignUpPhoto = () => {
   const router = useRouter();
 
   const getAllCategoryAPI = useCallback(async () => {
-    const data = await getAllCategory();
-    setCategories(data);
-    setFavorite(data[0]._id);
+    const response = await getAllCategory();
+    if (response.error) {
+      toast.error('Internal server error. Failed to get categories');
+    } else {
+      setCategories(response.data);
+      setFavorite(response.data[0]._id);
+    }
   }, []);
 
   useEffect(() => {

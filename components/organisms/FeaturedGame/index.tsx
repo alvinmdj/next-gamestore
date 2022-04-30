@@ -1,14 +1,20 @@
 import { useCallback, useEffect, useState } from 'react';
 import { GameItemTypes } from '../../../services/data-types';
 import { getFeaturedGames } from '../../../services/player';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import GameItem from '../../molecules/GameItem';
 
 const FeaturedGame = () => {
 	const [gameList, setGameList] = useState([]);
 
 	const getFeaturedGameList = useCallback(async () => {
-		const data = await getFeaturedGames();
-		setGameList(data);
+		const response = await getFeaturedGames();
+		if (response.error) {
+			toast.error('Internal server error. Failed to get featured games');
+		} else {
+			setGameList(response.data);
+		}
 	}, []);
 
 	useEffect(() => {
@@ -40,6 +46,7 @@ const FeaturedGame = () => {
 					})}
 				</div>
 			</div>
+			<ToastContainer />
 		</section>
 	);
 };

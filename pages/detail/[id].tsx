@@ -5,6 +5,8 @@ import Navbar from '../../components/organisms/Navbar';
 import TopUpForm from '../../components/organisms/TopUpForm';
 import TopUpItem from '../../components/organisms/TopUpItem';
 import { getVoucherDetail } from '../../services/player';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Detail: React.FC = () => {
   const { query, isReady } = useRouter();
@@ -19,10 +21,14 @@ const Detail: React.FC = () => {
   const [payments, setPayments] = useState([]);
 
   const getVoucherDetailAPI = useCallback(async (id: string) => {
-    const data = await getVoucherDetail(id);
-    setVoucherData(data.voucher);
-    setNominals(data.voucher.nominals);
-    setPayments(data.payment);
+    const response = await getVoucherDetail(id);
+    if (response.error) {
+      toast.error('Internal server error. Failed to get voucher detail');
+    } else {
+      setVoucherData(response.data.voucher);
+      setNominals(response.data.voucher.nominals);
+      setPayments(response.data.payment);
+    }
   }, []);
   
   useEffect(() => {
@@ -53,6 +59,7 @@ const Detail: React.FC = () => {
         </div>
       </section>
       <Footer />
+      <ToastContainer />
     </>
   );
 };
