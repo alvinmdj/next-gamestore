@@ -26,7 +26,7 @@ const TableRow = (props: TableRowProps) => {
     <tr className='align-middle'>
       <th scope='row'>
         <img
-          className='float-start me-3 mb-lg-0 mb-3'
+          className='float-start me-3 mb-lg-0 mb-3 img-fluid'
           src={image}
           width={80}
           height={60}
