@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { postSignIn } from '../../../services/auth';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 
@@ -72,7 +71,6 @@ const SignInForm = () => {
           </a>
         </Link>
       </div>
-      <ToastContainer />
     </>
   );
 };

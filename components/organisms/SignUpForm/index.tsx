@@ -2,8 +2,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const SignUpForm = () => {
   const [name, setName] = useState('');
@@ -85,7 +84,6 @@ const SignUpForm = () => {
           </a>
         </Link>
       </div>
-      <ToastContainer />
     </>
   );
 };

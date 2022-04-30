@@ -5,8 +5,7 @@ import Navbar from '../../components/organisms/Navbar';
 import TopUpForm from '../../components/organisms/TopUpForm';
 import TopUpItem from '../../components/organisms/TopUpItem';
 import { getVoucherDetail } from '../../services/player';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const Detail: React.FC = () => {
   const { query, isReady } = useRouter();
@@ -60,7 +59,6 @@ const Detail: React.FC = () => {
         </div>
       </section>
       <Footer />
-      <ToastContainer />
     </>
   );
 };

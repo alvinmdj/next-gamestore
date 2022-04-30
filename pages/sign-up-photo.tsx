@@ -4,8 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { postSignUp } from '../services/auth';
 import { getAllCategory } from '../services/player';
 import { useRouter } from 'next/router';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const SignUpPhoto = () => {
   const [categories, setCategories] = useState<any[]>([]);
@@ -143,7 +142,6 @@ const SignUpPhoto = () => {
           </div>
         </form>
       </div>
-      <ToastContainer />
     </section>
   );
 };

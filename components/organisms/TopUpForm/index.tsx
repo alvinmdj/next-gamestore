@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { BankTypes, NominalTypes, PaymentTypes } from '../../../services/data-types';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import NominalItem from './NominalItem';
 import PaymentItem from './PaymentItem';
 import { useRouter } from 'next/router';
@@ -48,7 +47,6 @@ const TopUpForm = (props: TopUpFormProps) => {
 
   return (
     <form action='' method='POST'>
-      <ToastContainer />
       <div className='pt-md-50 pt-30'>
         <div className=''>
           <label

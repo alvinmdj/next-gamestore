@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { GameItemTypes } from '../../../services/data-types';
 import { getFeaturedGames } from '../../../services/player';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import GameItem from '../../molecules/GameItem';
 
 const FeaturedGame = () => {
@@ -46,7 +45,6 @@ const FeaturedGame = () => {
 					})}
 				</div>
 			</div>
-			<ToastContainer />
 		</section>
 	);
 };
