@@ -1,11 +1,22 @@
 import jwtDecode from 'jwt-decode';
-import { GetServerSideProps } from 'next';
-import React from 'react';
 import Sidebar from '../../../components/organisms/Sidebar';
 import TransactionsDetailContent from '../../../components/organisms/TransactionsDetailContent';
 import { JWTPayloadTypes, UserTypes } from '../../../services/data-types';
+import { getMemberTransactionDetail } from '../../../services/member';
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+interface GetServerSideProps {
+  req: {
+    cookies: {
+      token: string;
+    };
+  };
+  params: {
+    trxId: string;
+  };
+};
+
+export const getServerSideProps = async ({ req, params }: GetServerSideProps) => {
+  const { trxId } = params;
   const { token } = req.cookies;
   if (!token) {
     return {
@@ -16,22 +27,20 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
+  // get user data from token
   const jwtToken = Buffer.from(token, 'base64').toString('utf-8');
-  const payload: JWTPayloadTypes = jwtDecode(jwtToken);
-  const userFromPayload: UserTypes = payload.player;
-  if (userFromPayload.avatar) {
-    const IMG_ROOT = process.env.NEXT_PUBLIC_IMG;
-    userFromPayload.avatar = `${IMG_ROOT}/${userFromPayload.avatar}`;
-  }
+
+  // get transactions data
+  const response = await getMemberTransactionDetail(trxId, jwtToken);
 
   return {
     props: {
-      user: userFromPayload,
+      transactionDetail: response.data,
     },
   };
 };
 
-const TransactionsDetail: React.FC = () => {
+const TransactionsDetail = ({ transactionDetail }) => {
   return (
     <>
       <Sidebar activeMenu='transactions' />
