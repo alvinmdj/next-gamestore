@@ -66,13 +66,25 @@ export interface TopUpHistoryTypes {
   coinName: string;
   coinQuantity: string;
   thumbnail: string;
+  price: number;
 };
+
+export interface PaymentHistoryTypes {
+  type: string;
+  bankName: string;
+  name: string;
+  accountNumber: string;
+}
 
 export interface TransactionHistoryTypes {
   _id: string;
   topUpHistory: TopUpHistoryTypes;
   value: number;
   status: string;
+  userAccount: string;
+  tax: number;
+  name: string;
+  paymentHistory: PaymentHistoryTypes;
 }
 
 export interface TopUpCategoryTypes {

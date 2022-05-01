@@ -1,7 +1,6 @@
-import jwtDecode from 'jwt-decode';
 import Sidebar from '../../../components/organisms/Sidebar';
-import TransactionsDetailContent from '../../../components/organisms/TransactionsDetailContent';
-import { JWTPayloadTypes, UserTypes } from '../../../services/data-types';
+import TransactionDetailContent from '../../../components/organisms/TransactionDetailContent';
+import { TransactionHistoryTypes } from '../../../services/data-types';
 import { getMemberTransactionDetail } from '../../../services/member';
 
 interface GetServerSideProps {
@@ -14,6 +13,10 @@ interface GetServerSideProps {
     trxId: string;
   };
 };
+
+interface TransactionDetailProps {
+  transactionDetail: TransactionHistoryTypes;
+}
 
 export const getServerSideProps = async ({ req, params }: GetServerSideProps) => {
   const { trxId } = params;
@@ -40,12 +43,14 @@ export const getServerSideProps = async ({ req, params }: GetServerSideProps) =>
   };
 };
 
-const TransactionsDetail = ({ transactionDetail }) => {
+const TransactionsDetail = (props: TransactionDetailProps) => {
+  const { transactionDetail } = props;
+
   return (
     <>
       <Sidebar activeMenu='transactions' />
       <section className='transactions-detail overflow-auto'>
-        <TransactionsDetailContent />
+        <TransactionDetailContent data={transactionDetail} />
       </section>
     </>
   );
