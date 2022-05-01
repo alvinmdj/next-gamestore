@@ -11,7 +11,6 @@ export const postSignUp = async (data: FormData) => {
     url,
     method: 'POST',
     data,
-    token: false,
   });
 };
 
@@ -22,6 +21,5 @@ export const postSignIn = async (data: SignInTypes) => {
     url,
     method: 'POST',
     data,
-    token: false,
   });
 };
