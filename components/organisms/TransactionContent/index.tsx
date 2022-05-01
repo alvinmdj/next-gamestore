@@ -78,6 +78,7 @@ const TransactionContent = () => {
                     return (
                       <TableRow
                         key={trx._id}
+                        id={trx._id}
                         image={`${ROOT_IMG}/${trx.topUpHistory.thumbnail}`}
                         title={trx.topUpHistory.gameName}
                         category={trx.topUpHistory.category}
