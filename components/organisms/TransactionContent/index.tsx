@@ -1,26 +1,37 @@
 import { useCallback, useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
 import { toast } from "react-toastify";
+import { TransactionHistoryTypes } from "../../../services/data-types";
 import { getMemberTransactions } from "../../../services/member";
 import ButtonTab from "./ButtonTab";
 import TableRow from "./TableRow";
 
 const TransactionContent = () => {
   const [total, setTotal] = useState(0);
+  const [transactions, setTransactions] = useState([]);
+  const [currentTab, setCurrentTab] = useState('all');
 
-  const getMemberTransactionsAPI = useCallback(async () => {
-		const response = await getMemberTransactions();
+  const getMemberTransactionsAPI = useCallback(async (value: string) => {
+		const response = await getMemberTransactions(value);
     if (response.error) {
       toast.error(response.message);
     } else {
+      console.log(response.data);
       setTotal(response.data.total);
-      // setData(response.data.data);
+      setTransactions(response.data.data);
     }
 	}, []);
 
   useEffect(() => {
-    getMemberTransactionsAPI();
-  }, [getMemberTransactionsAPI]);
+    getMemberTransactionsAPI(currentTab);
+  }, [getMemberTransactionsAPI, currentTab]);
+
+  const tabClickHandler = (value: string) => {
+    setCurrentTab(value);
+    getMemberTransactionsAPI(value);
+  };
+
+  const ROOT_IMG = process.env.NEXT_PUBLIC_IMG;
 
   return (
     <section className="transactions overflow-auto">
@@ -42,10 +53,10 @@ const TransactionContent = () => {
           <div className="row mt-30 mb-20">
             <div className="col-lg-12 col-12 main-content">
               <div id="list_status_title">
-                <ButtonTab title='All Trx' active />
-                <ButtonTab title='Success' active={false} />
-                <ButtonTab title='Pending' active={false} />
-                <ButtonTab title='Failed' active={false} />
+                <ButtonTab onClick={() => tabClickHandler('all')} title='All Trx' active={currentTab === 'all'} />
+                <ButtonTab onClick={() => tabClickHandler('success')} title='Success' active={currentTab === 'success'} />
+                <ButtonTab onClick={() => tabClickHandler('pending')} title='Pending' active={currentTab === 'pending'} />
+                <ButtonTab onClick={() => tabClickHandler('failed')} title='Failed' active={currentTab === 'failed'} />
               </div>
             </div>
           </div>
@@ -63,38 +74,19 @@ const TransactionContent = () => {
                   </tr>
                 </thead>
                 <tbody id="list_status_item">
-                  <TableRow
-                    image='overview-1'
-                    title='Mobile Legends: The New Battle 2021'
-                    category='Desktop'
-                    item={200}
-                    price={290000}
-                    status='Pending'
-                  />
-                  <TableRow
-                    image='overview-2'
-                    title='Mobile Legends: The New Battle 2021'
-                    category='Desktop'
-                    item={200}
-                    price={290000}
-                    status='Success'
-                  />
-                  <TableRow
-                    image='overview-3'
-                    title='Mobile Legends: The New Battle 2021'
-                    category='Desktop'
-                    item={200}
-                    price={290000}
-                    status='Failed'
-                  />
-                  <TableRow
-                    image='overview-4'
-                    title='Mobile Legends: The New Battle 2021'
-                    category='Desktop'
-                    item={200}
-                    price={290000}
-                    status='Pending'
-                  />
+                  {transactions.map((trx: TransactionHistoryTypes) => {
+                    return (
+                      <TableRow
+                        key={trx._id}
+                        image={`${ROOT_IMG}/${trx.topUpHistory.thumbnail}`}
+                        title={trx.topUpHistory.gameName}
+                        category={trx.topUpHistory.category}
+                        item={`${trx.topUpHistory.coinQuantity} ${trx.topUpHistory.coinName}`}
+                        price={trx.value}
+                        status={trx.status}
+                      />
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

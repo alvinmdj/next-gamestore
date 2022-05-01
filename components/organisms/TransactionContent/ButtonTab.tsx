@@ -4,10 +4,11 @@ import Link from 'next/link';
 interface ButtonTabProps {
   title: string;
   active: boolean;
-}
+  onClick: () => void;
+};
 
 const ButtonTab = (props: ButtonTabProps) => {
-  const { title, active } = props;
+  const { title, active, onClick } = props;
 
   const btnClass = classNames({
     'btn btn-status rounded-pill text-sm me-3': true,
@@ -15,11 +16,13 @@ const ButtonTab = (props: ButtonTabProps) => {
   });
 
   return (
-    <Link href='#'>
-      <a data-filter='*' className={btnClass}>
-        {title}
-      </a>
-    </Link>
+    <button
+      type='button'
+      className={btnClass}
+      onClick={onClick}
+    >
+      {title}
+    </button>
   );
 };
 
