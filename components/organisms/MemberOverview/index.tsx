@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { TopUpCategoryTypes, TransactionHistoryTypes } from "../../../services/data-types";
-import { getMemberOverview } from "../../../services/player";
+import { getMemberOverview } from "../../../services/member";
 import Category from "./Category";
 import TableRow from "./TableRow";
 
@@ -14,7 +14,6 @@ const MemberOverview = () => {
     if (response.error) {
       toast.error(response.message);
     } else {
-      console.log(response.data);
       setCount(response.data.count);
       setData(response.data.data);
     }

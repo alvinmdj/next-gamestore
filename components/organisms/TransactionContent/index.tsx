@@ -1,7 +1,27 @@
+import { useCallback, useEffect, useState } from "react";
+import NumberFormat from "react-number-format";
+import { toast } from "react-toastify";
+import { getMemberTransactions } from "../../../services/member";
 import ButtonTab from "./ButtonTab";
 import TableRow from "./TableRow";
 
 const TransactionContent = () => {
+  const [total, setTotal] = useState(0);
+
+  const getMemberTransactionsAPI = useCallback(async () => {
+		const response = await getMemberTransactions();
+    if (response.error) {
+      toast.error(response.message);
+    } else {
+      setTotal(response.data.total);
+      // setData(response.data.data);
+    }
+	}, []);
+
+  useEffect(() => {
+    getMemberTransactionsAPI();
+  }, [getMemberTransactionsAPI]);
+
   return (
     <section className="transactions overflow-auto">
       <main className="main-wrapper">
@@ -9,7 +29,15 @@ const TransactionContent = () => {
           <h2 className="text-4xl fw-bold color-palette-1 mb-30">My Transactions</h2>
           <div className="mb-30">
             <p className="text-lg color-palette-2 mb-12">You’ve spent</p>
-            <h3 className="text-5xl fw-medium color-palette-1">Rp 4.518.000.500</h3>
+            <h3 className="text-5xl fw-medium color-palette-1">
+              <NumberFormat
+                value={total}
+                displayType='text'
+                thousandSeparator={'.'}
+                decimalSeparator={','}
+                prefix='Rp '
+              />
+            </h3>
           </div>
           <div className="row mt-30 mb-20">
             <div className="col-lg-12 col-12 main-content">
