@@ -1,9 +1,40 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
+import Cookies from 'js-cookie';
+import jwtDecode from 'jwt-decode';
+import { useEffect, useState } from 'react';
 import Input from '../../components/atoms/Input';
 import Sidebar from '../../components/organisms/Sidebar';
+import { JWTPayloadTypes, UserTypes } from '../../services/data-types';
 
-const EditProfile: React.FC = () => {
+const EditProfile = () => {
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    // phoneNumber: '',
+    avatar: '',
+  });
+  const [imagePreview, setImagePreview] = useState(null);
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (token) {
+      const jwtToken = Buffer.from(token, 'base64').toString('utf-8');
+      const payload: JWTPayloadTypes = jwtDecode(jwtToken);
+      const userFromPayload: UserTypes = payload.player;
+      if (userFromPayload.avatar) {
+        const IMG_ROOT = process.env.NEXT_PUBLIC_IMG;
+        userFromPayload.avatar = `${IMG_ROOT}/${userFromPayload.avatar}`;
+      }
+      setUser(userFromPayload);
+    }
+  }, []);
+
+  const handleSubmit = () => {
+    console.log('data:', user);
+  };
+
+  const ROOT_IMG = process.env.NEXT_PUBLIC_IMG;
+
   return (
     <>
       <Sidebar activeMenu='settings' />
@@ -14,31 +45,71 @@ const EditProfile: React.FC = () => {
             <div className='bg-card pt-30 ps-30 pe-30 pb-30'>
               <form action=''>
                 <div className='photo d-flex'>
-                  <div className='position-relative me-20'>
+                  {/* <div className='position-relative me-20'>
                     <img src='/img/avatar-1.png' width='90' height='90' className='avatar img-fluid' alt='avatar' />
                     <div className='avatar-overlay position-absolute top-0 d-flex justify-content-center align-items-center'>
                       <img src='/icon/ic-trash.svg' alt='delete' />
                     </div>
-                  </div>
+                  </div> */}
                   <div className='image-upload'>
                     <label htmlFor='avatar'>
-                      <img src='/icon/upload.svg' width={90} height={90} alt='upload' />
+                      {imagePreview ? (
+                        <img
+                          src={imagePreview}
+                          width={90}
+                          height={90}
+                          style={{ borderRadius: '50%' }}
+                          alt='upload'
+                        />
+                      ) : (
+                        <img
+                          src={user.avatar ? user.avatar : '/img/avatar-1.png'}
+                          width={90}
+                          height={90}
+                          style={{ borderRadius: '50%' }}
+                          alt='upload'
+                        />
+                      )}
                     </label>
-                    <input id='avatar' type='file' name='avatar' accept='image/png, image/jpeg' />
+                    <input
+                      id='avatar'
+                      type='file'
+                      name='avatar'
+                      accept='image/png, image/jpeg'
+                      onChange={(e) => {
+                        const img = e.target.files![0];
+                        setImagePreview(URL.createObjectURL(img));
+                        return setUser({ ...user, avatar: img });
+                      }}
+                    />
                   </div>
                 </div>
                 <div className='pt-30'>
-                  <Input label='Full Name' name='name' placeholder='Enter your name' />
+                  <Input
+                    label='Full Name'
+                    placeholder='Enter your name'
+                    value={user.name}
+                    onChange={(e) => setUser({ ...user, name: e.target.value })}
+                  />
                 </div>
                 <div className='pt-30'>
-                  <Input label='Email Address' name='email' placeholder='Enter your email address' />
+                  <Input
+                    label='Email Address'
+                    placeholder='Enter your email address'
+                    value={user.email}
+                    disabled
+                  />
                 </div>
-                <div className='pt-30'>
-                  <Input label='Phone Number' name='phone' placeholder='Enter your phone number' />
-                </div>
+                {/* <div className='pt-30'>
+                  <Input label='Phone Number' placeholder='Enter your phone number' />
+                </div> */}
                 <div className='button-group d-flex flex-column pt-50'>
-                  <button type='submit' className='btn btn-save fw-medium text-lg text-white rounded-pill' role='button'>
-                    Save My Profile
+                  <button
+                    type='button'
+                    className='btn btn-save fw-medium text-lg text-white rounded-pill'
+                    onClick={handleSubmit}
+                  >
+                    Update My Profile
                   </button>
                 </div>
               </form>
