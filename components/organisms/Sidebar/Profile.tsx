@@ -10,6 +10,7 @@ const Profile = () => {
     name: '',
     email: '',
   });
+
   useEffect(() => {
     const token = Cookies.get('token');
     if (token) {
