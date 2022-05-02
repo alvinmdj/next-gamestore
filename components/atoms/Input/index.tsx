@@ -1,10 +1,15 @@
+import { ChangeEvent } from "react";
+
 export interface InputProps {
   label: string;
   placeholder: string;
+  value: string;
+  disabled?: boolean;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = (props: InputProps) => {
-  const { label, placeholder, ...nativeProps } = props;
+const Input = (props: Partial<InputProps>) => {
+  const { label, placeholder, value, disabled, onChange } = props;
 
   return (
     <>
@@ -15,7 +20,9 @@ const Input = (props: InputProps) => {
         type='text'
         className='form-control rounded-pill text-lg'
         placeholder={placeholder}
-        {...nativeProps}
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
       />
     </>
   );

@@ -2,21 +2,28 @@
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Input from '../../components/atoms/Input';
 import Sidebar from '../../components/organisms/Sidebar';
 import { JWTPayloadTypes, UserTypes } from '../../services/data-types';
 import { putMemberUpdateProfile } from '../../services/member';
 
+interface UserProps {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  avatar: string | File;
+}
+
 const EditProfile = () => {
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<UserProps>({
     name: '',
     email: '',
     phoneNumber: '',
     avatar: '',
   });
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const router = useRouter();
 
@@ -35,7 +42,6 @@ const EditProfile = () => {
   }, []);
 
   const handleSubmit = async () => {
-    console.log('user:', user);
     const data = new FormData();
     data.append('name', user.name);
     data.append('phoneNumber', user.phoneNumber);
@@ -45,7 +51,6 @@ const EditProfile = () => {
 
     const response = await putMemberUpdateProfile(data);
     if (response.error) {
-      console.log('data:', response); 
       toast.error('Internal server error. Failed to update profile');
     } else {
       toast.success('Your profile has been updated! Please login again.');
@@ -53,8 +58,6 @@ const EditProfile = () => {
       router.push('/sign-in');
     }
   };
-
-  const ROOT_IMG = process.env.NEXT_PUBLIC_IMG;
 
   return (
     <>
@@ -84,7 +87,7 @@ const EditProfile = () => {
                         />
                       ) : (
                         <img
-                          src={user.avatar ? user.avatar : '/img/avatar-1.png'}
+                          src={user.avatar ? user.avatar as string : '/img/avatar-1.png'}
                           width={90}
                           height={90}
                           style={{ borderRadius: '50%' }}
@@ -110,7 +113,9 @@ const EditProfile = () => {
                     label='Full Name'
                     placeholder='Enter your name'
                     value={user.name}
-                    onChange={(e) => setUser({ ...user, name: e.target.value })}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setUser(
+                      { ...user, name: e.target.value }
+                    )}
                   />
                 </div>
                 <div className='pt-30'>
@@ -126,7 +131,9 @@ const EditProfile = () => {
                     label='Phone Number'
                     placeholder='Enter your phone number'
                     value={user.phoneNumber}
-                    onChange={(e) => setUser({ ...user, phoneNumber: e.target.value })}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setUser(
+                      { ...user, phoneNumber: e.target.value }
+                    )}
                   />
                 </div>
                 <div className='button-group d-flex flex-column pt-50'>
