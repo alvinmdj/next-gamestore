@@ -30,7 +30,6 @@ const TopUpForm = (props: TopUpFormProps) => {
   }
 
   const handleSubmit = () => {
-    console.log(verifyID, nominalItem, paymentItem, bankAccountName);
     if (
       verifyID === '' ||
       bankAccountName === '' ||
