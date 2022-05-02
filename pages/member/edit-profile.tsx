@@ -1,19 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import Input from '../../components/atoms/Input';
 import Sidebar from '../../components/organisms/Sidebar';
 import { JWTPayloadTypes, UserTypes } from '../../services/data-types';
+import { putMemberUpdateProfile } from '../../services/member';
 
 const EditProfile = () => {
   const [user, setUser] = useState({
     name: '',
     email: '',
-    // phoneNumber: '',
+    phoneNumber: '',
     avatar: '',
   });
   const [imagePreview, setImagePreview] = useState(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -29,8 +34,24 @@ const EditProfile = () => {
     }
   }, []);
 
-  const handleSubmit = () => {
-    console.log('data:', user);
+  const handleSubmit = async () => {
+    console.log('user:', user);
+    const data = new FormData();
+    data.append('name', user.name);
+    data.append('phoneNumber', user.phoneNumber);
+    if (imagePreview) {
+      data.append('image', user.avatar);
+    }
+
+    const response = await putMemberUpdateProfile(data);
+    if (response.error) {
+      console.log('data:', response); 
+      toast.error('Internal server error. Failed to update profile');
+    } else {
+      toast.success('Your profile has been updated! Please login again.');
+      Cookies.remove('token');
+      router.push('/sign-in');
+    }
   };
 
   const ROOT_IMG = process.env.NEXT_PUBLIC_IMG;
@@ -100,9 +121,14 @@ const EditProfile = () => {
                     disabled
                   />
                 </div>
-                {/* <div className='pt-30'>
-                  <Input label='Phone Number' placeholder='Enter your phone number' />
-                </div> */}
+                <div className='pt-30'>
+                  <Input
+                    label='Phone Number'
+                    placeholder='Enter your phone number'
+                    value={user.phoneNumber}
+                    onChange={(e) => setUser({ ...user, phoneNumber: e.target.value })}
+                  />
+                </div>
                 <div className='button-group d-flex flex-column pt-50'>
                   <button
                     type='button'
