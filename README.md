@@ -42,6 +42,12 @@ npm install
 cp .env.example .env.local
 ```
 
+- Local build & validity check:
+
+```sh
+npm run build
+```
+
 - Run (development):
 
 ```sh
