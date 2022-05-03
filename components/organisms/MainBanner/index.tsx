@@ -1,4 +1,4 @@
-import Illustration from "./Illustration";
+import Illustration from './Illustration';
 
 const MainBanner = () => {
 	return (

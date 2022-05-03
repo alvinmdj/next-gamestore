@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 /* eslint-disable @next/next/no-img-element */
 const CheckoutItem = () => {

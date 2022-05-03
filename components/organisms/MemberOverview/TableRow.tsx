@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
-import classNames from "classnames";
-import NumberFormat from "react-number-format";
+import classNames from 'classnames';
+import NumberFormat from 'react-number-format';
 
 interface TableRowProps {
   title: string;

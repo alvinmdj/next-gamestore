@@ -35,7 +35,7 @@ const PaymentItem = (props: PaymentItemProps) => {
         <p className='text-lg color-palette-1 m-0'>{name}</p>
       </div>
     </label>
-  )
-}
+  );
+};
 
-export default PaymentItem
+export default PaymentItem;

@@ -45,9 +45,9 @@ const TopUpForm = (props: TopUpFormProps) => {
   };
 
   return (
-    <form action='' method='POST'>
+    <>
       <div className='pt-md-50 pt-30'>
-        <div className=''>
+        <div>
           <label
             htmlFor='ID'
             className='form-label text-lg fw-medium color-palette-1 mb-10'
@@ -136,7 +136,7 @@ const TopUpForm = (props: TopUpFormProps) => {
           Continue
         </button>
       </div>
-    </form>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import NumberFormat from "react-number-format";
+import NumberFormat from 'react-number-format';
 
 interface RowProps {
   label: string;
