@@ -9,6 +9,7 @@ import FeaturedGame from '../components/organisms/FeaturedGame';
 import Reached from '../components/organisms/Reached';
 import Story from '../components/organisms/Story';
 import Footer from '../components/organisms/Footer';
+import Head from 'next/head';
 
 const Home: NextPage = () => {
 	useEffect(() => {
@@ -17,6 +18,17 @@ const Home: NextPage = () => {
 
 	return (
 		<>
+			<Head>
+				<title>Game Store | Get a New Experience in Gaming</title>
+				<meta
+					name='description'
+					content='We provide lots of items to help gamers become the best in the game.'
+				/>
+				<meta property='og:title' content='Game Store | Get a New Experience in Gaming' />
+				<meta property='og:description' content='We provide lots of items to help gamers become the best in the game.' />
+				<meta property='og:image' content='http://localhost:3000/img/avatar-1.png' />
+				<meta property='og:url' content='http://localhost:3000/' />
+			</Head>
 			<Navbar />
 			<MainBanner />
 			<TransactionStep />
