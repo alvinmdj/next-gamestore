@@ -1,15 +1,12 @@
-import { ChangeEvent } from "react";
+import { InputHTMLAttributes } from 'react';
 
-export interface InputProps {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   placeholder: string;
-  value: string;
-  disabled?: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = (props: Partial<InputProps>) => {
-  const { label, placeholder, value, disabled, onChange } = props;
+  const { label, placeholder, ...nativeProps } = props;
 
   return (
     <>
@@ -20,9 +17,7 @@ const Input = (props: Partial<InputProps>) => {
         type='text'
         className='form-control rounded-pill text-lg'
         placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
+        {...nativeProps}
       />
     </>
   );
