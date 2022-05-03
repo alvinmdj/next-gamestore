@@ -26,8 +26,8 @@ const Home: NextPage = () => {
 				/>
 				<meta property='og:title' content='Game Store | Get a New Experience in Gaming' />
 				<meta property='og:description' content='We provide lots of items to help gamers become the best in the game.' />
-				<meta property='og:image' content='http://localhost:3000/img/avatar-1.png' />
-				<meta property='og:url' content='http://localhost:3000/' />
+				<meta property='og:image' content='https://nextgamestore.vercel.app/img/avatar-1.png' />
+				<meta property='og:url' content='https://nextgamestore.vercel.app' />
 			</Head>
 			<Navbar />
 			<MainBanner />
