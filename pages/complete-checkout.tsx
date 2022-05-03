@@ -144,7 +144,7 @@ const CompleteCheckout: React.FC = () => {
             role='button'
             target='_blank'
             rel='noopener noreferrer'
-            href='https://wa.me/62XXXXXXXXXXX?text=I%20have%20transferred%20the%20money'
+            href='#'
           >
             Send WhatsApp to Admin
           </a>
