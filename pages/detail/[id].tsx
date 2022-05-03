@@ -5,6 +5,7 @@ import TopUpItem from '../../components/organisms/TopUpItem';
 import { getFeaturedGames, getVoucherDetail } from '../../services/player';
 import { toast } from 'react-toastify';
 import { GameItemTypes, NominalTypes, PaymentTypes } from '../../services/data-types';
+import { useEffect } from 'react';
 
 interface DetailProps {
   voucherData: GameItemTypes;
@@ -13,6 +14,10 @@ interface DetailProps {
 };
 
 const Detail = ({ voucherData, nominals, payments }: DetailProps) => {
+  useEffect(() => {
+    localStorage.setItem('voucher-data', JSON.stringify(voucherData));
+  }, [voucherData]);
+
   return (
     <>
       <Navbar />
