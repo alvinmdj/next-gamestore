@@ -141,9 +141,6 @@ const CompleteCheckout: React.FC = () => {
           </Link>
           <a
             className='btn btn-whatsapp fw-medium text-lg color-palette-1 rounded-pill'
-            role='button'
-            target='_blank'
-            rel='noopener noreferrer'
             href='#'
           >
             Send WhatsApp to Admin
