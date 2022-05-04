@@ -187,9 +187,12 @@ const NotFound: React.FC = () => {
 			</div>
 			<div className='pt-70 pb-md-50 pb-150'>
 				<h2 className='text-4xl fw-bold text-center color-palette-1 mb-10'>Oops! Not Found</h2>
-				<p className='text-lg text-center color-palette-1 m-0'>This page is no longer<br
-						className='d-sm-block d-none' />
-					available on our website.</p>
+				<p className='text-lg text-center color-palette-1 m-0'>
+					This page is no longer
+					<br />
+					{' '}
+					available on our website.
+				</p>
 			</div>
 			<div className='button-group d-flex flex-column mx-auto'>
 				<Link href='/'>
