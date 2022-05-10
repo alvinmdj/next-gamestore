@@ -1,5 +1,7 @@
 # Next Game Store
 
+Back-end & Admin Dashboard: [Express Game Store Server](https://github.com/alvinmdj/express-gamestore-server)
+
 ## Links
 
 - [Next.js](https://nextjs.org/)
