@@ -11,10 +11,6 @@ updates:
     schedule:
       interval: 'daily'
       time: '00:00'
-    reviewers:
-      - alvinmdj
-    assignees:
-      - alvinmdj
     commit-message:
       prefix: fix
       prefix-development: chore
